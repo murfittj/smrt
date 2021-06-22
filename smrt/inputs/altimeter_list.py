@@ -86,3 +86,30 @@ def cryosat2_lrm():
               beamwidth=1.2,
               )
     return altimeter(channel='Ku', **params)
+
+
+def jason_3(channel=None):
+    """return an Altimeter instance for the Jason-3 Poseidon-3B altimeter.
+    Parameters from https://directory.eoportal.org/web/eoportal/satellite-missions/j/jason-3
+    :param channel: can be 'C', 'Ku', or both. Default is both.
+
+"""
+
+    config = {
+        'Ku': dict(frequency=13.575e9,
+                   altitude=1336e3,
+                   pulse_bandwidth=320e6,
+                   ngate=128,
+                   nominal_gate=45,
+                   beamwidth=1.28,
+                   ),
+        'C': dict(frequency=5.3e9,
+                  altitude=1336e3,
+                  pulse_bandwidth=320e6,
+                  ngate=128,
+                  nominal_gate=32,    
+                  beamwidth=3.4,  
+                  ),
+    }
+
+    return make_multi_channel_altimeter(config, channel)
